@@ -1,0 +1,50 @@
+{
+    "success":true,
+    "data":{
+        "topicList":[
+            {
+                "id":1,
+                "title":"社会热点",
+                "imgUrl":"https://cdn.pixabay.com/photo/2020/10/12/22/15/glass-5650335__340.jpg"
+            },
+            {
+                "id":2,
+                "title":"第二个",
+                "imgUrl":"https://cdn.pixabay.com/photo/2020/10/12/22/15/glass-5650335__340.jpg"
+            }
+        ],
+
+        "articleList":[
+            {
+                "id":1,
+                "title":"标题标题标题",
+                "desc":"desc desc desc",
+                "imgUrl":"https://cdn.pixabay.com/photo/2017/07/17/13/34/abstract-2512412__340.jpg"
+            },
+            {
+                "id":2,
+                "title":"标题2标题标题",
+                "desc":"desc desc desc",
+                "imgUrl":"https://cdn.pixabay.com/photo/2017/07/17/13/34/abstract-2512412__340.jpg"
+            }
+        ],
+
+        "recommendList":[
+            {
+                "id":0,
+                "imgUrl":"https://cdn.pixabay.com/photo/2020/05/30/07/15/mountains-5237939__340.jpg"
+            },
+            {
+                "id":1,
+                "imgUrl":"https://cdn.pixabay.com/photo/2020/07/09/14/10/airport-5387490__340.jpg"
+            },
+            {
+                "id":2,
+                "imgUrl":"https://cdn.pixabay.com/photo/2021/06/09/18/50/ladybug-6324263__340.jpg"  
+            },
+            {}
+        ]
+
+        
+    }
+}
