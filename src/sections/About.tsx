@@ -1,38 +1,44 @@
-const tags = [
-  'Embedded & IoT Devices',
-  'Intelligent Automation',
-  'Smart Manufacturing',
-  'Smart Agriculture',
-  'ERP / MES Systems',
-  'Full-stack Delivery',
-  'AI-assisted Engineering',
-]
+import { UserBadgeIcon } from '../components/Icons'
+import type { SiteContent } from '../content/siteContent'
 
-export default function About() {
+type AboutProps = {
+  content: SiteContent['about']
+}
+
+export default function About({ content }: AboutProps) {
+  const photoSrc = `${import.meta.env.BASE_URL}assets/me.png`
+
   return (
-    <section className="section" id="about">
+    <section className="section about-section" id="about">
       <div className="container">
-        <p className="section-kicker">About</p>
-        <h2 className="section-title">About Me</h2>
-        <p className="section-copy">
-          I am an independent developer focused on end-to-end system engineering for industrial and
-          agricultural environments.
-        </p>
-        <p className="section-copy">
-          My work combines embedded firmware, sensor networks, automation logic, and enterprise
-          software into one reliable operational stack.
-        </p>
-        <p className="section-copy">
-          I design practical systems that reduce manual work, improve data quality, and help teams
-          run faster with better decision support.
-        </p>
-        <ul className="tag-list" aria-label="skills">
-          {tags.map((tag) => (
-            <li key={tag} className="tag">
-              {tag}
-            </li>
-          ))}
-        </ul>
+        <div className="about-panel">
+          <div className="about-layout">
+            <div className="about-text">
+              <p className="section-kicker">{content.kicker}</p>
+              <h2 className="section-title with-icon">
+                <UserBadgeIcon />
+                {content.title}
+              </h2>
+              {content.paragraphs.map((paragraph) => (
+                <p key={paragraph} className="section-copy">
+                  {paragraph}
+                </p>
+              ))}
+              <ul className="tag-list" aria-label="skills">
+                {content.tags.map((tag) => (
+                  <li key={tag} className="tag">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <aside className="about-photo-pane">
+              <div className="about-photo-shell">
+                <img className="about-photo" src={photoSrc} alt="Profile photo" loading="lazy" />
+              </div>
+            </aside>
+          </div>
+        </div>
       </div>
     </section>
   )

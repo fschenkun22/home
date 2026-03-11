@@ -6,7 +6,7 @@ type ButtonProps = {
 }
 
 export default function Button({ href, children }: ButtonProps) {
-  const isExternal = href.startsWith('http') || href.startsWith('mailto:')
+  const isExternal = href.startsWith('http')
 
   return (
     <a

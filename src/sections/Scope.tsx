@@ -1,27 +1,22 @@
-const chain = [
-  'Sensors',
-  'Embedded firmware',
-  'IoT communication',
-  'Automation logic',
-  'Smart manufacturing',
-  'Smart agriculture',
-  'ERP / MES',
-  'Full-stack applications',
-  'AI-assisted optimization',
-]
+import { CompassIcon } from '../components/Icons'
+import type { SiteContent } from '../content/siteContent'
 
-export default function Scope() {
+type ScopeProps = {
+  content: SiteContent['scope']
+}
+
+export default function Scope({ content }: ScopeProps) {
   return (
     <section className="section" id="scope">
       <div className="container scope-panel">
-        <p className="section-kicker">End-to-End Scope</p>
-        <h2 className="section-title">One Engineer Across the Entire System Chain</h2>
-        <p className="section-copy">
-          I work across the full stack of operational systems, so integration and delivery stay
-          consistent from physical devices to enterprise workflows.
-        </p>
+        <p className="section-kicker">{content.kicker}</p>
+        <h2 className="section-title with-icon">
+          <CompassIcon />
+          {content.title}
+        </h2>
+        <p className="section-copy">{content.description}</p>
         <ul className="tag-list scope-tags" aria-label="full chain scope">
-          {chain.map((item) => (
+          {content.chain.map((item) => (
             <li key={item} className="tag">
               {item}
             </li>

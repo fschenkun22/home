@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react'
+import type { ThemeMode } from '../content/siteContent'
 import * as THREE from 'three'
 
 type SceneProps = {
   className?: string
+  theme: ThemeMode
 }
 
-export default function Scene({ className }: SceneProps) {
+export default function Scene({ className, theme }: SceneProps) {
   const mountRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -16,9 +18,10 @@ export default function Scene({ className }: SceneProps) {
       window.matchMedia('(max-width: 768px)').matches || /Mobi|Android|iPhone/i.test(navigator.userAgent)
     const particleCount = isMobile ? 700 : 1600
     const networkNodeCount = isMobile ? 0 : 52
+    const isLightTheme = theme === 'light'
 
     const scene = new THREE.Scene()
-    scene.fog = new THREE.Fog(0x081019, 8, 24)
+    scene.fog = new THREE.Fog(isLightTheme ? 0xeaf3fb : 0x081019, 8, 24)
 
     const camera = new THREE.PerspectiveCamera(58, mount.clientWidth / mount.clientHeight, 0.1, 100)
     camera.position.set(0, 0.15, 6.4)
@@ -26,23 +29,23 @@ export default function Scene({ className }: SceneProps) {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.2 : 1.7))
     renderer.setSize(mount.clientWidth, mount.clientHeight)
-    renderer.setClearColor(0x02060b, 0)
+    renderer.setClearColor(isLightTheme ? 0xf6fbff : 0x02060b, 0)
     mount.appendChild(renderer.domElement)
 
-    const ambientLight = new THREE.AmbientLight(0xa8ffef, 0.44)
-    const pointLight = new THREE.PointLight(0x5ff3d8, 1.2, 50)
+    const ambientLight = new THREE.AmbientLight(isLightTheme ? 0xb6d0de : 0xa8ffef, 0.44)
+    const pointLight = new THREE.PointLight(isLightTheme ? 0x67a3cc : 0x5ff3d8, 1.2, 50)
     pointLight.position.set(2.4, 2.2, 3.5)
-    const fillLight = new THREE.PointLight(0x6f9dff, 0.5, 45)
+    const fillLight = new THREE.PointLight(isLightTheme ? 0x93b7df : 0x6f9dff, 0.5, 45)
     fillLight.position.set(-3, -1.4, 2)
     scene.add(ambientLight, pointLight, fillLight)
 
     const coreGeometry = new THREE.IcosahedronGeometry(1.15, 0)
     const coreMaterial = new THREE.MeshStandardMaterial({
-      color: 0x66ffe0,
+      color: isLightTheme ? 0x358ab4 : 0x66ffe0,
       metalness: 0.34,
       roughness: 0.42,
-      emissive: 0x0d4a43,
-      emissiveIntensity: 0.45,
+      emissive: isLightTheme ? 0x3d7598 : 0x0d4a43,
+      emissiveIntensity: isLightTheme ? 0.2 : 0.45,
       wireframe: true,
     })
     const core = new THREE.Mesh(coreGeometry, coreMaterial)
@@ -59,10 +62,10 @@ export default function Scene({ className }: SceneProps) {
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3))
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x8af6ff,
+      color: isLightTheme ? 0x5f96be : 0x8af6ff,
       size: isMobile ? 0.016 : 0.02,
       transparent: true,
-      opacity: 0.66,
+      opacity: isLightTheme ? 0.46 : 0.66,
     })
     const particles = new THREE.Points(particleGeometry, particleMaterial)
     scene.add(particles)
@@ -91,10 +94,10 @@ export default function Scene({ className }: SceneProps) {
       networkPointsGeometry = new THREE.BufferGeometry()
       networkPointsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(nodePositions, 3))
       networkPointsMaterial = new THREE.PointsMaterial({
-        color: 0x67fff5,
+        color: isLightTheme ? 0x4b89af : 0x67fff5,
         size: 0.035,
         transparent: true,
-        opacity: 0.85,
+        opacity: isLightTheme ? 0.64 : 0.85,
       })
       networkPoints = new THREE.Points(networkPointsGeometry, networkPointsMaterial)
       scene.add(networkPoints)
@@ -120,9 +123,9 @@ export default function Scene({ className }: SceneProps) {
       networkLinesGeometry = new THREE.BufferGeometry()
       networkLinesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3))
       networkLinesMaterial = new THREE.LineBasicMaterial({
-        color: 0x68d8ff,
+        color: isLightTheme ? 0x7ca9cc : 0x68d8ff,
         transparent: true,
-        opacity: 0.2,
+        opacity: isLightTheme ? 0.15 : 0.2,
       })
       networkLines = new THREE.LineSegments(networkLinesGeometry, networkLinesMaterial)
       scene.add(networkLines)
@@ -187,7 +190,7 @@ export default function Scene({ className }: SceneProps) {
         mount.removeChild(renderer.domElement)
       }
     }
-  }, [])
+  }, [theme])
 
   return <div ref={mountRef} className={className} style={{ width: '100%', height: '100%' }} />
 }

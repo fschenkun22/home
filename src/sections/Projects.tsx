@@ -1,57 +1,47 @@
 import Card from '../components/Card'
+import { ClockIcon, FolderIcon, TrendIcon, WrenchIcon } from '../components/Icons'
+import type { SiteContent } from '../content/siteContent'
 
-const projects = [
-  {
-    title: 'Bluetooth ECG Monitoring Device',
-    background: 'Needed a portable, low-power ECG acquisition solution.',
-    solution:
-      'Developed embedded firmware, BLE communication, and real-time signal processing.',
-    result: 'Delivered a stable, accurate, mobile-ready ECG monitoring system.',
-  },
-  {
-    title: 'Environmental Sensor and Automation System',
-    background: 'Manual monitoring of temperature, humidity, and air quality was inefficient.',
-    solution: 'Built a multi-sensor embedded system with automated control logic.',
-    result: 'Achieved fully automated environmental regulation with real-time data.',
-  },
-  {
-    title: 'Smart Agriculture Monitoring and Irrigation',
-    background: 'Farms needed automated environmental control and irrigation.',
-    solution:
-      'Developed a sensor-driven system for soil moisture, climate monitoring, and automated irrigation.',
-    result: 'Improved crop stability and reduced manual labor.',
-  },
-  {
-    title: 'Production MES Workflow System',
-    background: 'Production tracking lacked visibility and accuracy.',
-    solution: 'Designed a complete MES workflow including scheduling, tracking, and ERP integration.',
-    result: 'Improved data accuracy and reduced manual reporting time by over 60%.',
-  },
-  {
-    title: 'ERP Customization for Manufacturing',
-    background: 'Standard ERP modules could not match real production workflows.',
-    solution: 'Customized modules and added automation logic for scheduling, quality, and reporting.',
-    result: 'Increased workflow accuracy and reduced manual adjustments.',
-  },
-]
+type ProjectsProps = {
+  content: SiteContent['projects']
+}
 
-export default function Projects() {
+export default function Projects({ content }: ProjectsProps) {
   return (
     <section className="section" id="projects">
       <div className="container">
-        <p className="section-kicker">Projects</p>
-        <h2 className="section-title">Selected Systems</h2>
+        <p className="section-kicker">{content.kicker}</p>
+        <h2 className="section-title with-icon">
+          <FolderIcon />
+          {content.title}
+        </h2>
         <div className="card-grid projects-grid">
-          {projects.map((project) => (
-            <Card key={project.title} title={project.title} className="project-card">
+          {content.items.map((project, index) => (
+            <Card
+              key={project.title}
+              title={project.title}
+              className={`project-card tone-${(index % 6) + 1}`}
+            >
               <p>
-                <strong>Background:</strong> {project.background}
+                <strong className="meta-with-icon">
+                  <ClockIcon />
+                  {content.backgroundLabel}:
+                </strong>{' '}
+                {project.background}
               </p>
               <p>
-                <strong>Solution:</strong> {project.solution}
+                <strong className="meta-with-icon">
+                  <WrenchIcon />
+                  {content.solutionLabel}:
+                </strong>{' '}
+                {project.solution}
               </p>
               <p>
-                <strong>Result:</strong> {project.result}
+                <strong className="meta-with-icon">
+                  <TrendIcon />
+                  {content.resultLabel}:
+                </strong>{' '}
+                {project.result}
               </p>
             </Card>
           ))}
